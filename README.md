@@ -1,0 +1,2 @@
+# newshaus
+Django newspaper
