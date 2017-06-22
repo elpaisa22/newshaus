@@ -1,0 +1,138 @@
+
+{% extends 'base.html' %}
+
+{% load index %}
+{% load staticfiles %}
+
+{% block content %}
+
+  {% for blk in blocks %}
+    <div class="row">
+
+      {% for col in blk.columns.all %}
+          <div class="col-md-{{ col.width }}">
+              {% for elem in col.elements.all %}
+
+                {% if elem.content_type == 'CAR' %}
+
+                      <div id="carousel-example-generic-{{elem.pk}}" class="carousel slide" data-ride="carousel">
+                          <!-- Indicators -->
+                          <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic-{{elem.pk}}" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic-{{elem.pk}}" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic-{{elem.pk}}" data-slide-to="2"></li>
+                          </ol>
+
+                          <!-- Wrapper for slides -->
+                          <div class="carousel-inner" role="listbox">
+
+                            {% for times in "123" %}
+
+                            {% with iterator.next_number as elem_index %}
+                            {% with posts|index:elem_index as post %}
+                              {% if forloop.first %}
+                                <div class="item active">
+                                  <img src="{{post.defaultImage.image.url}}" alt="...">
+                                  <div class="carousel-caption">
+                                    <a href="{% url 'post_detail' slug=post.slug pk=post.pk %}">
+                                      {{post.title}}
+                                    </a>
+                                  </div>
+                                </div>
+                              {% else %}
+                                <div class="item">
+                                  <img src="{{post.defaultImage.image.url}}" alt="...">
+                                  <div class="carousel-caption">
+                                    <a href="{% url 'post_detail' slug=post.slug pk=post.pk %}">
+                                      {{post.title}}
+                                    </a>
+                                  </div>
+                                </div>
+                              {% endif %}
+
+                            {% endwith %}
+                            {% endwith %}
+                            {% endfor %}
+                          </div>
+
+                          <!-- Controls -->
+                          <a class="left carousel-control" href="#carousel-example-generic-{{elem.pk}}" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="right carousel-control" href="#carousel-example-generic-{{elem.pk}}" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                      </div>
+                      <hr/>
+
+                {% endif %}
+
+                {% if elem.content_type == 'ART' %}
+                  {% with iterator.next_number as elem_index %}
+                  {% if posts|length > elem_index %}
+                    {% with posts|index:elem_index as post %}
+                          <div class="panel">
+                              <div class="panel-heading" style="padding: 0">
+                                  <div class="text-center">
+                                      <div class="row">
+                                          <div class="col-sm-12">
+                                              <h3 class="pull-left">
+                                                <a href="{% url 'post_detail' slug=post.slug pk=post.pk %}">
+                                                  <strong>{{ post.title }}</strong>
+                                                </a>
+                                              </h3>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="panel-body" style="padding: 5">
+                                  <a href="{% url 'post_detail' slug=post.slug pk=post.pk %}">
+                                    <img src="{{post.defaultImage.image.url}}" style="width: 100%;">
+                                  </a>
+                                  <p style="font-size:1.2em">{{ post.subtitle|truncatechars:200 }}</p>
+                              </div>
+                          </div>
+                    {% endwith %}
+                  {% endif %}
+                  {% endwith %}
+                {% endif %}
+
+                {% if elem.content_type == 'THU' %}
+                  {% with iterator.next_number as elem_index %}
+                  {% if posts|length > elem_index %}
+                    {% with posts|index:elem_index as post %}
+                          <div class="thumbnail">
+                            <img src="{{post.defaultImage.image.url}}">
+                            <div class="caption">
+                              <a href="{% url 'post_detail' slug=post.slug pk=post.pk %}">
+                                <strong>{{post.title}}</strong>
+                              </a>
+                            </div>
+                          </div>
+                    {% endwith %}
+                  {% endif %}
+                  {% endwith %}
+                {% endif %}
+
+                {% if elem.content_type == 'CUS' %}
+                  {{elem.html_code | safe}}
+                {% endif %}
+                {% if elem.content_type == 'ADV' %}
+                  <div class="thumbnail">
+                    <img src="{{elem.advertising.url}}" style="width: 100%">
+                  </div>
+                {% endif %}
+
+              {% endfor %}
+          </div>
+      {% endfor %}
+
+    </div>
+
+    <hr/>
+  {% endfor %}
+
+{% endblock %}

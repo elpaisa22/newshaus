@@ -1,0 +1,14 @@
+
+news/__pycache__/
+
+layout/migrations/__pycache__/
+
+site_media/images/
+
+newshaus/__pycache__/
+
+layout/__pycache__/
+
+news/migrations/__pycache__/
+
+news/templatetags/__pycache__/

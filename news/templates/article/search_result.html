@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="row">
+
+        <h4><strong>Resultados de la búsqueda para <i>'{{query}}'</i>: </strong></h4>
+
+        <hr/>
+
+        <div class="col-md-8">
+
+            {% for post in posts %}
+
+                <div class="panel" style="font-size: 80%; box-shadow: none; -webkit-box-shadow: none">
+                    <div class="panel-heading" style="padding: 0">
+                      {{ post.publish_date|date:"l d F, Y" }}
+                      {{ post.publish_date|date:"H:m" }}
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3 class="pull-left">
+                                      <a href="{% url 'post_detail' slug=post.slug pk=post.pk %}" style="font-size: 70%">
+                                        {{ post.title }}
+                                      </a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body" style="padding: 0">
+                        {{ post.subtitle|truncatechars:200 }}
+                    </div>
+
+                </div>
+
+                <hr/>
+
+            {% endfor %}
+
+
+        </div>
+
+        <div class="col-md-3">
+          {% include "../content/advertisings_side.html" with adverts=advertisings %}
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+        </div>
+
+    </div>
+
+    {% if posts.has_other_pages %}
+    <ul class="pagination">
+      {% if posts.has_previous %}
+        <li><a href="?q={{query}}&page={{ posts.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in posts.paginator.page_range %}
+        {% if posts.number == i %}
+          <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+          <li><a href="?q={{query}}&page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if posts.has_next %}
+        <li><a href="?q={{query}}&page={{ posts.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+
+{% endblock content %}

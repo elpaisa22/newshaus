@@ -1,0 +1,71 @@
+{% load staticfiles %}
+{% load menu %}
+<html>
+    <head>
+        <title>Noticias Bonaerenses</title>
+        <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-yeti.min.css' %}">
+        <!-- <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}"> -->
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        <!-- Load Facebook SDK for JavaScript -->
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.9";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        /* Load Twitter */
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+        </script>
+        <style type="text/css">
+            iframe[id^='twitter-widget-0'] {
+              min-width: 150px !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+
+        <div class="container">
+
+            <div class="row">
+              <a href="{% url 'default_view' %}">
+                <img src="{% static 'img/cabecera.png' %}" style="width: 70%; padding-left: 15px;"/>
+              </a>
+            </div>
+
+            {% show_menu menu %}
+
+            <div>
+
+                {% block content %}
+                {% endblock %}
+
+            </div>
+
+        </div>
+
+        <div class="container">
+          <div class="navbar navbar-default navbar-bottom">
+            <div class="container">
+              <a class="navbar-brand" href="/" style="padding-right:0">
+                <img src="{% static 'img/logo.png' %}" style="width: 30px;"/>
+              </a>
+              <p class="navbar-text pull-left">
+                Noticias Bonaerenses
+              </p>
+              <p class="navbar-text pull-right" style="margin-right: 40px;">
+                © 2017 - Desarrollado por <a target="_blank" href="http://codehausit.com/">CodeHaus IT</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>
