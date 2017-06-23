@@ -25,7 +25,10 @@ SECRET_KEY = 'mjc_!@ta(*+&mt6s@qlx-d)g!uh-^t=v+r(j^u)nfg(o3+ouq*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'boiling-springs-43280.herokuapp.com',
+    'localhost'
+]
 
 
 # Application definition

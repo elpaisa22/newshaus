@@ -30,6 +30,7 @@
 
                             {% with iterator.next_number as elem_index %}
                             {% with posts|index:elem_index as post %}
+                            {% if post != None %}
                               {% if forloop.first %}
                                 <div class="item active">
                                   <img src="{{post.defaultImage.image.url}}" alt="...">
@@ -49,7 +50,7 @@
                                   </div>
                                 </div>
                               {% endif %}
-
+                            {% endif %}
                             {% endwith %}
                             {% endwith %}
                             {% endfor %}

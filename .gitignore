@@ -12,3 +12,5 @@ layout/__pycache__/
 news/migrations/__pycache__/
 
 news/templatetags/__pycache__/
+
+venv/
