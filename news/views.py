@@ -23,7 +23,7 @@ class TemplateIterator(itertools.count):
 def default_view(request):
         iterator=TemplateIterator()
         posts = Post.objects.annotate(Count('pk')).order_by('-publish_date')[:10]
-        blocks = Block.objects.all()
+        blocks = Block.objects.all().order_by('order')
         return render(request, 'default.html', {'blocks' : blocks, 'posts': posts, 'iterator':iterator})
 
 def post_by_category(request, category_name):

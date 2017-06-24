@@ -11,6 +11,7 @@ class Block(models.Model):
     class Meta:
         verbose_name = 'Bloque'
         verbose_name_plural = 'Bloques'
+        ordering = ['order']
 
 class Column(models.Model):
     order = models.PositiveIntegerField(verbose_name="Orden")
@@ -23,6 +24,7 @@ class Column(models.Model):
     class Meta:
         verbose_name = 'Columna'
         verbose_name_plural = 'Columnas'
+        ordering = ['block__order', 'order']
 
 class ContentElement(models.Model):
     CONTENT_TYPES = (
@@ -45,3 +47,4 @@ class ContentElement(models.Model):
     class Meta:
         verbose_name = 'Elemento'
         verbose_name_plural = 'Elementos'
+        ordering = ['column__order','order']
